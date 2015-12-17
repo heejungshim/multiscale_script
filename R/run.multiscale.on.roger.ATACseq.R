@@ -1,11 +1,16 @@
 ## `run.multiscale.on.roger.ATACseq.R' runs only multiseq on roger ATAC-seq data. It is useful when we try to rerun only multiseq after preprocessing (there is an option to avoid pcr.posi computation).
 ##
 ##
-## Example Usage (in /mnt/lustre/home/shim/multiscale_analysis/analysis/roger_ATAC2/run/multiscale/com/Copper.1024.both.null/) R CMD BATCH --no-save --no-restore "--args chr=10 sites.ix=$SGE_TASK_ID wd.path='/mnt/lustre/home/shim/multiscale_analysis/analysis/roger_ATAC2/run/' siteSize=1024 treatment='Copper' null=TRUE strand='both' pcr.posi.path='/mnt/lustre/home/shim/multiscale_analysis/analysis/roger_ATAC2/run/multiscale.backup/Copper.1024.both.null.output/' pcr.posi.print=TRUE" /mnt/lustre/home/shim/multiscale_analysis/src/R/run.multiscale.on.roger.ATACseq.R
+## Example Usage (in /home/hjshim/d/projects/multiscale/atacseq_analysis/run/multiscale/com/Copper.1024.both.null) R CMD BATCH --no-save --no-restore "--args chr=1 sites.ix=1 pcr.artifact.script.path='/depot/hjshim/data/hjshim/projects/utils_shim/R/pcr.artifact.R' rhdf5.script.path='/depot/hjshim/data/hjshim/projects/utils_shim/R/rhdf5.R' hdf5.data.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' library.read.depth.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' loc.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/locus/' wd.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/run/' siteSize=1024 treatment='Copper' strand='both' null=FALSE sites.iv=1 pcr.posi.path=NULL pcr.posi.print=TRUE" /depot/hjshim/data/hjshim/projects/multiscale/multiscale_script/R/run.multiscale.on.roger.ATACseq.R
 ##
-##
+## pcr.artifact.script.path : path to script to handle pcr artifact
+## rhdf5.script.path : path to script to read data from hdf5 format
+## hdf5.data.path : path to a directory which contains hdf5 data
+## library.read.depth.path : path to a directory which contains library read depth file
+## loc.path : path to a directory which contains location file
 ## chr : chromosome
-## sites.ix : default=NULL; if it is null, run multiseq on all sites or we can specifiy partifular site
+## sites.iv : how many sites to run in this script.
+## sites.ix : this script will run from st.sites = sites.iv * (sites.ix -1) + 1 to en.sites = min(sites.iv * sites.ix, numSites) 
 ## wd.path : working directory path
 ## siteSize : site size
 ## treatment : treatment name
@@ -56,7 +61,6 @@ library("ashr")
 
 args = (commandArgs(TRUE))
 eval(parse(text=args))
-##nargs()
 
 source(pcr.artifact.script.path)
 source(rhdf5.script.path)
