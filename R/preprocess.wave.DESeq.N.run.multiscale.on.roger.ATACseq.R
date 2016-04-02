@@ -242,9 +242,9 @@ set.seed(sites)
   
 ## sites = 1    
 ## create file for warning message
-warn.path = paste0(warning.dir.path, "/warnings.", chr, ".", sites, ".txt")
-warnings.file <- file(warn.path, open="wt")
-sink(warnings.file, type="message")
+##warn.path = paste0(warning.dir.path, "/warnings.", chr, ".", sites, ".txt")
+##warnings.file <- file(warn.path, open="wt")
+##sink(warnings.file, type="message")
 
 #############################
 # read location information 
@@ -435,7 +435,8 @@ if(pcr.posi.print){
     }
   }
 }
-close(warnings.file)
+##sink()
+##close(warnings.file)
 }
 }
 
