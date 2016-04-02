@@ -54,8 +54,8 @@ library("ashr")
 ##sample.prob.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/info/'
 ##wd.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/run/' 
 ##chr=22
-##sites.ix=2
-##sites.iv=100
+##sites.ix=1
+##sites.iv=1000
 ##pcr.posi.path=NULL
 ##pcr.posi.print = TRUE
 
@@ -120,6 +120,9 @@ names.Sam = c("N501", "N502", "N503")
 sample.names = c(paste0(name.treatment, names.Sam), paste0(name.control, names.Sam))
 sample.files = paste0(sample.names, ".qfiltered10")
 
+numSam = length(sample.names)
+
+
 ## Read sampling prob
 if(!is.null(sample.prob.path)){
   if(null){
@@ -140,6 +143,22 @@ if(!is.null(pcr.posi.path)){
 }else{
   pcr.posi.given = FALSE
 }
+
+## read library read depth
+library.read.depth.fwd = rep(0, numSam)
+path.read.depth = paste0(library.read.depth.path, "library.read.depth.fwd")
+library.read.depth.dat = read.table(path.read.depth, as.is=TRUE)
+for(i in 1:numSam){
+  library.read.depth.fwd[i] = library.read.depth.dat[which(library.read.depth.dat[,1] == sample.names[i]),2]
+}
+
+library.read.depth.rev = rep(0, numSam)
+path.read.depth = paste0(library.read.depth.path, "library.read.depth.rev")
+library.read.depth.dat = read.table(path.read.depth, as.is=TRUE)
+for(i in 1:numSam){
+  library.read.depth.rev[i] = library.read.depth.dat[which(library.read.depth.dat[,1] == sample.names[i]),2]
+}
+
 
 ## set up working directory 
 setwd(wd.path)
@@ -237,7 +256,6 @@ en.posi = loc.info$en.posi[sites]
 #####################
 # read data
 #####################
-numSam = length(sample.names)
 numBPs = siteSize
 library.read.depth = rep(0, numSam)
 ATAC.dat = matrix(data=0, nr = numSam, nc = numBPs)
@@ -257,12 +275,7 @@ pcr.ix = 1
 ## for fwd
 if((strand=='both') | (strand=='plus')){
 
-    ## read library read depth
-    path.read.depth = paste0(library.read.depth.path, "library.read.depth.fwd")
-    library.read.depth.dat = read.table(path.read.depth, as.is=TRUE)
-    for(i in 1:numSam){
-        library.read.depth[i] = library.read.depth[i] + library.read.depth.dat[which(library.read.depth.dat[,1] == sample.names[i]),2]
-    }
+    library.read.depth = library.read.depth + library.read.depth.fwd 
 
     ## read read counts for a given region
     ## for + strand, we need get reads at locations that are shifted 4bp to left
@@ -294,13 +307,8 @@ if((strand=='both') | (strand=='plus')){
 ## for reverse
 if((strand=='both') | (strand=='minus')){
 
-    ## read library read depth
-    path.read.depth = paste0(library.read.depth.path, "library.read.depth.rev")
-    library.read.depth.dat = read.table(path.read.depth, as.is=TRUE)
-    for(i in 1:6){
-        library.read.depth[i] = library.read.depth[i] + library.read.depth.dat[which(library.read.depth.dat[,1] == sample.names[i]),2]
-    }
-    
+    library.read.depth = library.read.depth + library.read.depth.rev
+  
     ## read read counts for a given region
     ## for - strand, we need get reads at locations that are shifted 4bp to right
     ATAC.dat.rev = matrix(data=NA, nr = numSam, nc = numBPs)
