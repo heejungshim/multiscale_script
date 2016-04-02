@@ -1,8 +1,7 @@
 ## `preprocess.wave.DESeq.N.run.multiscale.on.roger.ATACseq.R' prepare data for WaveQTL, DESeq2, and run multiseq 
 ##
 ##
-## Example Usage (see command in /home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/gen.data/com/Copper.1024.both.alt) :
-## R CMD BATCH --no-save --no-restore "--args chr=1 sites.ix=1 sites.iv=1000 pcr.posi.path=NULL pcr.posi.print=TRUE com.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/gen.data/com/' WaveQTL.path='/home/hjshim/d/hjshim/software/WaveQTL/' utils.path='/depot/hjshim/data/hjshim/projects/utils_shim/' hdf5.data.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' library.read.depth.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' loc.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/locus/' sample.prob.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/info/' wd.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/run/' siteSize=1024 treatment='Copper' strand='both' null=FALSE null.permutation=FALSE meanR.thresh=2 window.size.list=c(100,300,1024) wavelet.preprocess.QT=TRUE wavelet.preprocess.NoQT=FALSE deseq.preprocess=TRUE" /home/hjshim/d/hjshim/projects/multiscale/multiscale_script/R/preprocess.wave.DESeq.N.run.multiscale.on.roger.ATACseq.R
+## Example Usage (see command in /home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/gen.data/com/Copper.1024.both.alt) : R CMD BATCH --no-save --no-restore "--args chr=1 sites.ix=1 sites.iv=1000 pcr.posi.path=NULL pcr.posi.print=TRUE com.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/gen.data/com/' WaveQTL.path='/home/hjshim/d/hjshim/software/WaveQTL/' utils.path='/depot/hjshim/data/hjshim/projects/utils_shim/' hdf5.data.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' library.read.depth.path='/depot/hjshim/data/shared_data/internal_restricted/roger_atacseq2/hdf5/' loc.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/locus/' sample.prob.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/info/' wd.path='/depot/hjshim/data/hjshim/projects/multiscale/atacseq_analysis/run/' siteSize=1024 treatment='Copper' strand='both' null=FALSE null.permutation=FALSE meanR.thresh=2 window.size.list=c(100,300,1024) wavelet.preprocess.QT=TRUE wavelet.preprocess.NoQT=FALSE deseq.preprocess=TRUE" /home/hjshim/d/hjshim/projects/multiscale/multiscale_script/R/preprocess.wave.DESeq.N.run.multiscale.on.roger.ATACseq.R
 ##
 ##
 ## WaveQTL.path : path to WaveQTL software (= '/home/hjshim/d/hjshim/software/WaveQTL/')
@@ -436,6 +435,7 @@ if(pcr.posi.print){
     }
   }
 }
+close(warnings.file)
 }
 }
 
