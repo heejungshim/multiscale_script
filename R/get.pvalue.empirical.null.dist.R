@@ -1,6 +1,6 @@
 ## `get.pvalue.empirical.null.dist.R' computes pvalue using 'get.pval.from.empirical.null.dist.discrete' in 'utils_shim' repo.
 ##
-## Example Usage (see command in /home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/etc/Copper.1024.both/com) R CMD BATCH --no-save --no-restore "--args wd.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/etc/Copper.1024.both/' utils.path='/depot/hjshim/data/hjshim/projects/utils_shim/' method='ms'" /home/hjshim/d/hjshim/projects/multiscale/multiscale <- script/R/get.pvalue.empirical.null.dist.R
+## Example Usage (see command in /home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/etc/Copper.1024.both/com) R CMD BATCH --no-save --no-restore "--args wd.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/etc/Copper.1024.both/' utils.path='/depot/hjshim/data/hjshim/projects/utils_shim/' method='ms' seed=1" /home/hjshim/d/hjshim/projects/multiscale/multiscale <- script/R/get.pvalue.empirical.null.dist.R
 ##
 ##
 ## wd.path: path to working directory 
@@ -28,9 +28,12 @@
 ##wd.path='/home/hjshim/d/hjshim/projects/multiscale/atacseq_analysis/run/etc/Copper.1024.both/'
 ##utils.path = '/depot/hjshim/data/hjshim/projects/utils_shim/'
 ##method='ms'
+##seed = 1
 
 args = (commandArgs(TRUE))
 eval(parse(text=args))  
+
+set.seed(seed)
 
 load(paste0(wd.path, "test.stat.Robj"))
 ## [1] "all.name"     "deseq.100.a"  "deseq.100.n"  "deseq.1024.a" "deseq.1024.n"
