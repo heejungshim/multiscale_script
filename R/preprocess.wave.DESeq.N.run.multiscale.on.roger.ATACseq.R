@@ -340,7 +340,6 @@ phenoD = ATAC.dat
 library.read.depth = library.read.depth*sample.prob 
 
 if(null.permutation){
-  ## Heejung working on here!
   ix.permutation = sample(1:6)
   phenoD = phenoD[ix.permutation,]
   library.read.depth = library.read.depth[ix.permutation]
